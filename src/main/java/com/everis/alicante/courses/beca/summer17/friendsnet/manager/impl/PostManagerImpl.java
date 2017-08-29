@@ -1,6 +1,7 @@
 package com.everis.alicante.courses.beca.summer17.friendsnet.manager.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.support.DaoSupport;
 import org.springframework.stereotype.Service;
 
 import com.everis.alicante.courses.beca.summer17.friendsnet.dao.LikeDAO;
@@ -31,7 +32,7 @@ public class PostManagerImpl implements PostManager {
 
 	@Override
 	public Post findById(Long id) {
-		return dao.findById(id);
+		return dao.findOne(id);
 	}
 
 	@Override
@@ -41,29 +42,29 @@ public class PostManagerImpl implements PostManager {
 
 	@Override
 	public Iterable<Post> saveAll(Iterable<Post> e) {
-		return dao.saveAll(e);
+		return dao.save(e);
 	}
 
 	@Override
 	public Post update(Post e) {
-		return dao.update(e);
+		return dao.save(e);
 	}
 
 	@Override
 	public Iterable<Post> update(Iterable<Post> e) {
-		return dao.update(e);
+		return dao.save(e);
 	}
 
 	@Override
 	public void remove(Post e) {
-		dao.remove(e);
+		dao.delete(e);
 
 	}
 
 	@Override
 	public Like addLike(Long id, Long idUser, LikeType likeType) {
-		final Post post = dao.findById(id);
-		final Person person = personDAO.findById(idUser);
+		final Post post = dao.findOne(id);
+		final Person person = personDAO.findOne(idUser);
 		final Like like = new Like();
 		like.setLikes(person);
 		like.setLikesByPost(post);

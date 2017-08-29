@@ -40,7 +40,7 @@ public class PersonControllerIT {
 		this.mapper = new ObjectMapper();
 		Iterable<Person> all = dao.findAll();
 		for (Person person : all) {
-			dao.remove(person);
+			dao.delete(person);
 		}
 	}
 

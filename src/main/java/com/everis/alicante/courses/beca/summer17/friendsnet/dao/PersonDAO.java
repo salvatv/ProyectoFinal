@@ -1,8 +1,12 @@
 package com.everis.alicante.courses.beca.summer17.friendsnet.dao;
 
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Service;
+
 import com.everis.alicante.courses.beca.summer17.friendsnet.entity.Person;
 
-public interface PersonDAO extends EntityDAO<Person, Long> {
+@Service
+public interface PersonDAO extends CrudRepository<Person, Long> {
 
 	
 }

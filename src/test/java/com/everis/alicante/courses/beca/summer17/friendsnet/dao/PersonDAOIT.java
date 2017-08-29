@@ -81,10 +81,10 @@ public class PersonDAOIT {
 	@ExpectedDatabase(value = "/db/after-saving-person.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
 	public void testRemovePerson() throws JSONException {
 		// Arrange
-		Person person = dao.findById(2L);
+		Person person = dao.findOne(2L);
 
 		// Act
-		dao.remove(person);
+		dao.delete(person);
 
 		// Assert
 		List<Person> all = (List<Person>) dao.findAll();
