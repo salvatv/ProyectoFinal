@@ -20,13 +20,14 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper = false, exclude = { "posts", "event", "likes" })
 @Entity
 @Table(name = "postTable")
 public class Post implements FNEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "post_id", nullable = false, unique = true)	
+	@Column(name = "post_id", nullable = false, unique = true)
 	private Long id;
 
 	private String text;
@@ -40,11 +41,11 @@ public class Post implements FNEntity {
 	@ManyToOne
 	@JoinColumn(name = "person_id")
 	private Person posts;
-	
+
 	@ManyToOne
-	@JoinColumn(name="event_id")
+	@JoinColumn(name = "event_id")
 	private Event event;
-	
+
 	@OneToMany(mappedBy = "likesByPost", cascade = { CascadeType.ALL })
 	@JsonIgnore
 	private Set<Like> likes;

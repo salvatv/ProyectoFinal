@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper = false, exclude={"friends", "groups", "events"})
+@EqualsAndHashCode(callSuper = false, exclude = { "friends", "groups", "events", "likes", "posts" })
 @Entity
 @Table(name = "persons")
 public class Person implements FNEntity {
@@ -23,40 +23,29 @@ public class Person implements FNEntity {
 
 	private byte[] picture;
 
-	@ManyToMany(mappedBy = "groups")
+	@ManyToMany(mappedBy = "groups", cascade = { CascadeType.ALL })
 	@JsonIgnore
 	private Set<Group> groups;
 
-	// @OneToMany(mappedBy = "friends")
-	// @JsonIgnore
-	// private final Set<Person> friends = new HashSet<>();
-
-	// **************
-	// testing
-
 	@ManyToMany(cascade = { CascadeType.ALL })
-	@JoinTable(name = "friends", joinColumns = { @JoinColumn(name = "id") }, inverseJoinColumns = {@JoinColumn(name = "friend_id") })
+	@JoinTable(name = "friends", joinColumns = { @JoinColumn(name = "id") }, inverseJoinColumns = {	@JoinColumn(name = "friend_id") })
 	@JsonIgnore
 	private Set<Person> friends;
 
-	@ManyToMany(mappedBy = "friends")
+	@ManyToMany(mappedBy = "friends", cascade = { CascadeType.ALL })
 	@JsonIgnore
 	private Set<Person> friend;
 
-	// ************
-	// endtest
-
-	@OneToMany(mappedBy = "likes")
+	@OneToMany(mappedBy = "likes", cascade = { CascadeType.ALL })
 	@JsonIgnore
 	private Set<Like> likes;
 
-	@OneToMany(mappedBy = "posts")
+	@OneToMany(mappedBy = "posts", cascade = { CascadeType.ALL })
 	@JsonIgnore
 	private Set<Post> posts;
 
-	@ManyToMany(mappedBy = "events")
+	@ManyToMany(mappedBy = "events", cascade = { CascadeType.ALL })
 	@JsonIgnore
 	private Set<Event> events;
 
 }
-

@@ -1,6 +1,9 @@
 package com.everis.alicante.courses.beca.summer17.friendsnet.controller;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.everis.alicante.courses.beca.summer17.friendsnet.controller.domain.UserLike;
+import com.everis.alicante.courses.beca.summer17.friendsnet.dao.LikeDAO;
 import com.everis.alicante.courses.beca.summer17.friendsnet.entity.Like;
-import com.everis.alicante.courses.beca.summer17.friendsnet.entity.Person;
 import com.everis.alicante.courses.beca.summer17.friendsnet.entity.Post;
 import com.everis.alicante.courses.beca.summer17.friendsnet.manager.PersonManager;
 import com.everis.alicante.courses.beca.summer17.friendsnet.manager.PostManager;
@@ -27,6 +30,9 @@ public class PostController {
 
 	@Autowired
 	PersonManager personManager;
+
+	@Autowired
+	LikeDAO dao;
 
 	@GetMapping
 	public List<Post> getAll() {
@@ -52,6 +58,9 @@ public class PostController {
 
 	@DeleteMapping("/{id}")
 	public void remove(@RequestParam Long id) {
+		Set<Like> likes = manager.findById(id).getLikes();
+		likes.stream().forEach(n -> dao.delete(n));
+		manager.save(manager.findById(id));
 		manager.remove(manager.findById(id));
 	}
 

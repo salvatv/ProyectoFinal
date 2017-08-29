@@ -8,39 +8,26 @@ import org.junit.Test;
 
 public class PersonTest {
 
-	/** The expected person. */
 	private Person expectedPerson;
 
-	/** The expected id. */
 	private Long expectedId = 1L;
 
-	/** The expected name. */
 	private String expectedName = "Jerry";
 
-	/** The expected surname. */
 	private String expectedSurname = "Tom";
 
-	/** The expected picture. */
 	private byte[] expectedPicture = null;
 
-	/** The expected groups. */
 	private Set<Group> expectedGroups = new HashSet<Group>();
 
-	/** The expected persons. */
 	private Set<Person> expectedFriends = new HashSet<Person>();
 
-	/** The expected events. */
 	private Set<Event> expectedEvents = new HashSet<Event>();
 
-	/** The expected like. */
 	private Set<Like> expectedLikes = new HashSet<>();
 
-	/** The expected post. */
 	private Set<Post> expectedPosts = new HashSet<>();
 
-	/**
-	 * Inits the.
-	 */
 	@Before
 	public void init() {
 		this.expectedPerson = new Person();
@@ -55,18 +42,12 @@ public class PersonTest {
 		this.expectedPerson.setFriends(expectedFriends);
 	}
 
-	/**
-	 * Test person.
-	 */
 	@Test
 	public void testPerson() {
 		// Assert
 		Assert.assertNotNull(expectedPerson);
 	}
-
-	/**
-	 * Test get id.
-	 */
+	
 	@Test
 	public void testGetId() {
 		// Act
@@ -75,9 +56,6 @@ public class PersonTest {
 		Assert.assertEquals(expectedId, result);
 	}
 
-	/**
-	 * Test set id.
-	 */
 	@Test
 	public void testSetId() {
 		// Arrange
@@ -88,9 +66,6 @@ public class PersonTest {
 		Assert.assertEquals(expectedId, person.getId());
 	}
 
-	/**
-	 * Test get name.
-	 */
 	@Test
 	public void testGetName() {
 		// Act
@@ -99,9 +74,6 @@ public class PersonTest {
 		Assert.assertEquals(expectedName, result);
 	}
 
-	/**
-	 * Test set name.
-	 */
 	@Test
 	public void testSetName() {
 		// Arrange
@@ -112,9 +84,6 @@ public class PersonTest {
 		Assert.assertEquals(expectedName, person.getName());
 	}
 
-	/**
-	 * Test get surname.
-	 */
 	@Test
 	public void testGetSurname() {
 		// Act
@@ -123,9 +92,6 @@ public class PersonTest {
 		Assert.assertEquals(expectedSurname, result);
 	}
 
-	/**
-	 * Test set surname.
-	 */
 	@Test
 	public void testSetSurname() {
 		// Arrange
@@ -136,9 +102,6 @@ public class PersonTest {
 		Assert.assertEquals(expectedSurname, person.getSurname());
 	}
 
-	/**
-	 * Test get picture.
-	 */
 	@Test
 	public void testGetPicture() {
 		// Act
@@ -147,9 +110,6 @@ public class PersonTest {
 		Assert.assertEquals(expectedPicture, result);
 	}
 
-	/**
-	 * Test set picture.
-	 */
 	@Test
 	public void testSetPicture() {
 		// Arrange
@@ -160,9 +120,6 @@ public class PersonTest {
 		Assert.assertEquals(expectedPicture, person.getPicture());
 	}
 
-	/**
-	 * Test get persons.
-	 */
 	@Test
 	public void testGetPersons() {
 		// Act
@@ -171,9 +128,6 @@ public class PersonTest {
 		Assert.assertEquals(expectedFriends, result);
 	}
 
-	/**
-	 * Test set persons.
-	 */
 	@Test
 	public void testSetPersons() {
 		// Arrange
@@ -184,9 +138,6 @@ public class PersonTest {
 		Assert.assertEquals(expectedFriends, person.getFriends());
 	}
 
-	/**
-	 * Test get groups.
-	 */
 	@Test
 	public void testGetGroups() {
 		// Act
@@ -195,9 +146,6 @@ public class PersonTest {
 		Assert.assertEquals(expectedGroups, result);
 	}
 
-	/**
-	 * Test set groups.
-	 */
 	@Test
 	public void testSetGroups() {
 		// Arrange
@@ -208,9 +156,6 @@ public class PersonTest {
 		Assert.assertEquals(expectedGroups, person.getGroups());
 	}
 
-	/**
-	 * Test get events.
-	 */
 	@Test
 	public void testGetEvents() {
 		// Act
@@ -219,9 +164,6 @@ public class PersonTest {
 		Assert.assertEquals(expectedEvents, result);
 	}
 
-	/**
-	 * Test set events.
-	 */
 	@Test
 	public void testSetEvents() {
 		// Arrange
@@ -232,9 +174,6 @@ public class PersonTest {
 		Assert.assertEquals(expectedEvents, person.getEvents());
 	}
 
-	/**
-	 * Test get post.
-	 */
 	@Test
 	public void testGetPost() {
 		// Act
@@ -243,9 +182,6 @@ public class PersonTest {
 		Assert.assertEquals(expectedPosts, result);
 	}
 
-	/**
-	 * Test set post.
-	 */
 	@Test
 	public void testSetPost() {
 		// Arrange
@@ -256,9 +192,6 @@ public class PersonTest {
 		Assert.assertEquals(expectedPosts, person.getPosts());
 	}
 
-	/**
-	 * Test get like.
-	 */
 	@Test
 	public void testGetLike() {
 		// Act
@@ -267,9 +200,6 @@ public class PersonTest {
 		Assert.assertEquals(expectedLikes, result);
 	}
 
-	/**
-	 * Test set like.
-	 */
 	@Test
 	public void testSetLike() {
 		// Arrange
