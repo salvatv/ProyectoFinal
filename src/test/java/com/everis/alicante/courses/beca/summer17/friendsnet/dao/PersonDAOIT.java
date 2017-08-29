@@ -23,77 +23,72 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class,
-        DirtiesContextTestExecutionListener.class,
-        TransactionalTestExecutionListener.class,
-        DbUnitTestExecutionListener.class})
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
+		TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
 public class PersonDAOIT {
 
-    @Autowired
-    private PersonDAO dao;
+	@Autowired
+	private PersonDAO dao;
 
-    private ObjectMapper mapper;
+	private ObjectMapper mapper;
 
-    @Before
-    public void setup() {
-        this.mapper = new ObjectMapper();
-    }
+	@Before
+	public void setup() {
+		this.mapper = new ObjectMapper();
+	}
 
+	@Test
+	@DatabaseSetup("/db/initial-person.xml")
+	public void testFindAll() throws JSONException {
+		// Act
+		List<Person> all = (List<Person>) dao.findAll();
 
-    @Test
-    @DatabaseSetup("/db/initial-person.xml")
-    public void testFindAll() throws JSONException {
-        // Act
-        List<Person> all = (List<Person>) dao.findAll();
+		// Assert
+		Assert.assertEquals(2, all.size());
+	}
 
-        // Assert
-        Assert.assertEquals(2, all.size());
-    }
+	@Test
+	@DatabaseSetup("/db/initial-person.xml")
+	public void testSavePerson() throws JSONException {
+		// Arrange
+		final Person person = new Person();
+		person.setName("A");
+		person.setSurname("B");
 
-    @Test
-    @DatabaseSetup("/db/initial-person.xml")
-    public void testSavePerson() throws JSONException {
-        // Arrange
-        final Person person = new Person();
-        person.setName("A");
-        person.setSurname("B");
+		// Act
+		dao.save(person);
 
-        // Act
-        dao.save(person);
+		// Assert
+		List<Person> all = (List<Person>) dao.findAll();
+		Assert.assertEquals(3, all.size());
+	}
 
-        // Assert
-        List<Person> all = (List<Person>) dao.findAll();
-        Assert.assertEquals(3, all.size());
-    }
+	@Test
+	@DatabaseSetup("/db/initial-person.xml")
+	@ExpectedDatabase(value = "/db/after-saving-person.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
+	public void testSavePerson2() throws JSONException {
+		// Arrange
+		final Person person = new Person();
+		person.setName("A");
+		person.setSurname("B");
 
+		// Act
+		dao.save(person);
+	}
 
-    @Test
-    @DatabaseSetup("/db/initial-person.xml")
-    @ExpectedDatabase(value = "/db/after-saving-person.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
-    public void testSavePerson2() throws JSONException {
-        // Arrange
-        final Person person = new Person();
-        person.setName("A");
-        person.setSurname("B");
+	@Test
+	@DatabaseSetup("/db/initial-person.xml")
+	@ExpectedDatabase(value = "/db/after-saving-person.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
+	public void testRemovePerson() throws JSONException {
+		// Arrange
+		Person person = dao.findById(2L);
 
-        // Act
-        dao.save(person);
-    }
+		// Act
+		dao.remove(person);
 
-
-    @Test
-    @DatabaseSetup("/db/initial-person.xml")
-    @ExpectedDatabase(value = "/db/after-saving-person.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
-    public void testRemovePerson() throws JSONException {
-        // Arrange
-        Person person = dao.findById(2L);
-
-        // Act
-        dao.remove(person);
-
-        // Assert
-        List<Person> all = (List<Person>) dao.findAll();
-        Assert.assertEquals(1, all.size());
-    }
+		// Assert
+		List<Person> all = (List<Person>) dao.findAll();
+		Assert.assertEquals(1, all.size());
+	}
 
 }
